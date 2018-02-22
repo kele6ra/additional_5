@@ -1,16 +1,14 @@
 module.exports = function check(str, bracketsConfig) {
-  	var a='((()))()';
-    var tmp = a.split('');
-    var b=[['(', ')'], ['[', ']'], ['{', '}']];
-    var i,j;
-    for (i=0;i<(tmp.length);i++){
-      for (j=0; j<b.length;j++){
-      
-		if ((a.indexOf(b[j][0])>=0) && (a.indexOf(b[j][1])>=0)){
-        	
-        	tmp.splice(a.indexOf(b[j][0]),1);
-            tmp.splice(a.indexOf(b[j][1]),1);
-        }
+    var strLength = str.length;
+    var i,j, position;
+    for (i=0;i<strLength;i++){
+      for (j=0; j<bracketsConfig.length;j++){
+		position=str.indexOf(bracketsConfig[j][0]+bracketsConfig[j][1],0);
+		if (position >= 0){
+            str=str.slice(0,position)+str.slice(position+2);
+		} 
       }
     }
+	if (str!=''){return(false);}
+	return(true);
 }
